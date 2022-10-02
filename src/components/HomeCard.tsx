@@ -1,8 +1,8 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useContext } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ThemeContext } from 'react-native-elements'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-native'
 import { blackBackground, getDarkMode } from '../common'
 
 // https://docs.nativebase.io/Components.html#card-headfoot-headref
@@ -11,11 +11,10 @@ interface Props {
   image: any
   title: string
   description: string
-  link: string
 }
-export default function HomeCard({ image, title, description, link }: Props) {
-  const navigate = useNavigate()
+export default function HomeCard({ image, title, description }: Props) {
   const { theme }: any = useContext(ThemeContext)
+  const navigation = useNavigation()
   const darkMode = useSelector(getDarkMode)
 
   const styles = StyleSheet.create({
@@ -47,7 +46,7 @@ export default function HomeCard({ image, title, description, link }: Props) {
   })
 
   return (
-    <TouchableOpacity onPress={() => navigate(link)}>
+    <TouchableOpacity onPress={() => navigation.navigate(title as never)}>
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <Image source={image} style={styles.image} />
