@@ -1,12 +1,29 @@
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
+import { Provider } from 'react-redux'
+import {
+  getEmailAsync,
+  getInitialDataAsync,
+  loadAppSettingsAsync,
+  store,
+} from './src/common'
 
-export default function App() {
+getInitialDataAsync(store)
+getEmailAsync(store)
+loadAppSettingsAsync(store)
+
+function RoutedApp() {
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
     </View>
+  )
+}
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <RoutedApp />
+    </Provider>
   )
 }
 

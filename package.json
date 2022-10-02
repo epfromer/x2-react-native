@@ -4,6 +4,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "yarn": "yarn",
     "test": "jest --watchAll --verbose --coverage --runInBand --detectOpenHandles",
     "watch": "expo start"
   },
@@ -15,7 +16,6 @@
     "@react-native-picker/picker": "2.4.2",
     "@reduxjs/toolkit": "^1.8.5",
     "expo": "~46.0.13",
-    "expo-status-bar": "~1.4.0",
     "expo-auth-session": "^3.7.1",
     "expo-random": "~12.3.0",
     "get-best-contrast-color": "^0.3.1",
@@ -25,7 +25,9 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.6",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "react-redux": "^8.0.4",
+    "redux": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
