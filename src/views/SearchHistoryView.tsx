@@ -11,7 +11,7 @@ import {
 import { Button } from 'react-native-elements'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-native'
+import { useNavigation } from '@react-navigation/native'
 import {
   blackBackground,
   clearSearch,
@@ -31,7 +31,7 @@ import {
 } from '../common'
 
 export default function SearchHistoryView() {
-  const navigate = useNavigate()
+  const navigation = useNavigation()
   const [log, setLog] = useState<SearchHistoryEntry[]>([])
   const [logLoading, setLogLoading] = useState(false)
   const darkMode = useSelector(getDarkMode)
@@ -95,7 +95,7 @@ export default function SearchHistoryView() {
     if (o.hasOwnProperty('allText')) store.dispatch(setAllText(o.allText))
     if (o.hasOwnProperty('body')) store.dispatch(setBody(o.body))
     getEmailAsync(store)
-    navigate('/SearchView')
+    navigation.navigate('Search View' as never)
   }
 
   const onClearHistory = () => {

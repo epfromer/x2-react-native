@@ -17,7 +17,7 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "@reduxjs/toolkit": "^1.8.5",
-    "expo": "~46.0.13",
+    "expo": "~46.0.14",
     "expo-auth-session": "^3.7.1",
     "expo-random": "~12.3.0",
     "get-best-contrast-color": "^0.3.1",
@@ -59,7 +59,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1",
     "react-test-renderer": "^18.2.0",
-    "typescript": "~4.3.5"
+    "typescript": "~4.8.4"
   },
   "eslintConfig": {
     "root": true,

@@ -1,9 +1,9 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-native'
 import {
   blackBackground,
   clearSearch,
@@ -23,7 +23,7 @@ import XmitTypePicker from '../components/XmitTypePicker'
 
 export default function TreeMapView() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigation = useNavigation()
   const [isSenders, setIsSenders] = useState(true)
   const [chartLib, setChartLib] = useState('ECharts')
   const custodiansLoading = useSelector(getCustodiansLoading)
@@ -54,7 +54,7 @@ export default function TreeMapView() {
     const name = value.slice(0, value.search(/,/))
     dispatch(search === 'from' ? setFrom(name) : setTo(name))
     getEmailAsync(store)
-    navigate('/SearchView')
+    navigation.navigate('Search' as never)
   }
 
   return (

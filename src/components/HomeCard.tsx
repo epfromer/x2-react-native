@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ThemeContext } from 'react-native-elements'
 import { useSelector } from 'react-redux'

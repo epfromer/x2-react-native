@@ -10,7 +10,7 @@ import {
 import { Button } from 'react-native-elements'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-native'
+import { useNavigation } from '@react-navigation/native'
 import {
   blackBackground,
   defaultLimit,
@@ -34,7 +34,7 @@ import {
 
 export default function SearchView() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigation = useNavigation()
   const allText = useSelector(getAllText)
   const from = useSelector(getFrom)
   const to = useSelector(getTo)
@@ -265,7 +265,11 @@ export default function SearchView() {
   }
 
   const renderItem = ({ item }: any) => (
-    <TouchableOpacity onPress={() => navigate(`/EmailDetailView/${item.id}`)}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('Email Detail' as never, { id: item.id } as never)
+      }
+    >
       <View style={styles.itemContainer}>
         <View style={styles.spaceBetweenRow}>
           <View>
@@ -334,7 +338,7 @@ export default function SearchView() {
         </View>
       )}
       <Button
-        onPress={() => navigate('/SearchHistoryView')}
+        onPress={() => navigation.navigate('Search History' as never)}
         title="Search History"
       />
     </SafeAreaView>

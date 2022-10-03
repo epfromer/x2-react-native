@@ -1,4 +1,3 @@
-import React from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { blackBackground, getDarkMode } from '../common'

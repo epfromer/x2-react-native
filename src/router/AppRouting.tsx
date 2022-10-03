@@ -1,19 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React from 'react'
 import BarView from '../views/BarView'
+import EmailDetailView from '../views/EmailDetailView'
 import HomeView from '../views/HomeView'
+import NetworkGraphView from '../views/NetworkGraphView'
 import PieView from '../views/PieView'
+import SearchHistoryView from '../views/SearchHistoryView'
+import SearchView from '../views/SearchView'
+import TreeMapView from '../views/TreeMapView'
+import VolumeTimelineView from '../views/VolumeTimelineView'
 
 const Stack = createNativeStackNavigator()
-
-export const routeNames = {
-  '/NetworkGraphView': 'Network Graph',
-  '/TreeMapView': 'Tree Map',
-  '/VolumeTimelineView': 'Volume Timeline',
-  '/EmailDetailView': 'Email Detail',
-  '/': 'Home',
-}
 
 export default function AppRouting() {
   return (
@@ -22,21 +19,13 @@ export default function AppRouting() {
         <Stack.Screen name="Home" component={HomeView} />
         <Stack.Screen name="Pie" component={PieView} />
         <Stack.Screen name="Bar" component={BarView} />
-        {/* <Stack.Screen name="Search" component={SearchView} /> */}
+        <Stack.Screen name="Volume Timeline" component={VolumeTimelineView} />
+        {/*<Stack.Screen name="Network Graph" component={NetworkGraphView} />
+        <Stack.Screen name="Tree Map" component={TreeMapView} />
+        <Stack.Screen name="Search" component={SearchView} />
+        <Stack.Screen name="Search History" component={SearchHistoryView} />
+        <Stack.Screen name="Email Detail" component={EmailDetailView} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   )
-}
-
-{
-  /* <Routes>
-<Route path="/SearchHistoryView" element={<SearchHistoryView />} />
-<Route path="/SearchView" element={<SearchView />} />
-<Route path="/BarView" element={<BarView />} />
-<Route path="/NetworkGraphView" element={<NetworkGraphView />} />
-<Route path="/TreeMapView" element={<TreeMapView />} />
-<Route path="/VolumeTimelineView" element={<VolumeTimelineView />} />
-<Route path="/EmailDetailView/:id" element={<EmailDetailView />} />
-<Route path="/HomeView" element={<HomeView />} />
-</Routes> */
 }

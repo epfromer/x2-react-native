@@ -6,7 +6,7 @@ import Highlighter from 'react-native-highlight-words'
 import Spinner from 'react-native-loading-spinner-overlay'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import {
   blackBackground,
   Email,
@@ -27,8 +27,10 @@ import {
 import { textColor } from '../utils/appThemes'
 
 export default function EmailDetailView() {
-  const navigate = useNavigate()
-  let { id } = useParams<{ id: string }>()
+  const navigation = useNavigation()
+  const route = useRoute()
+  let { id } = route.params as any
+  console.log(id)
   if (process.env.NODE_ENV === 'test')
     id = 'f3281cc4-90a9-4dcb-86bd-d705fc847985'
   const [loading, setLoading] = useState(false)
@@ -174,10 +176,15 @@ export default function EmailDetailView() {
   }
 
   const onPrevious = () =>
-    previousEmailId && navigate(`/EmailDetailView/${previousEmailId}`)
+    previousEmailId &&
+    navigation.navigate(
+      'Email Detail' as never,
+      { id: previousEmailId } as never
+    )
 
   const onNext = () =>
-    nextEmailId && navigate(`/EmailDetailView/${nextEmailId}`)
+    nextEmailId &&
+    navigation.navigate('Email Detail' as never, { id: nextEmailId } as never)
 
   return (
     <SafeAreaView style={styles.container}>

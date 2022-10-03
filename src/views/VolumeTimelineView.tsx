@@ -1,9 +1,9 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-native'
 import {
   blackBackground,
   clearSearch,
@@ -21,17 +21,17 @@ import VolumeTimelineVictory from '../components/Victory/VolumeTimelineVictory'
 
 export default function VolumeTimelineView() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [chartLib, setChartLib] = useState('ECharts')
   const emailSentLoading = useSelector(getEmailSentByDayLoading)
   const emailSent = useSelector(getEmailSentByDay)
   const darkMode = useSelector(getDarkMode)
+  const navigation = useNavigation()
 
   function handleClick(date: string) {
     dispatch(clearSearch())
     dispatch(setSent(date))
     getEmailAsync(store)
-    navigate('/SearchView')
+    navigation.navigate('Search' as never)
   }
 
   let data: Array<EmailSentByDay> = []

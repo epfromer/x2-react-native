@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { SafeAreaView, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import Spinner from 'react-native-loading-spinner-overlay'

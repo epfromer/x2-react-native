@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
 import { SafeAreaView, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-native'
 import {
   blackBackground,
   clearSearch,
@@ -21,7 +21,7 @@ import NetworkGraphECharts from '../components/ECharts/NetworkGraphECharts'
 
 export default function NetworkGraphView() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigation = useNavigation()
   const [chartLib, setChartLib] = useState('ECharts')
   const emailSentByCustodian = useSelector(getEmailSentByCustodian)
   const custodiansLoading = useSelector(getCustodiansLoading)
@@ -54,7 +54,7 @@ export default function NetworkGraphView() {
       dispatch(setTo(to.slice(0, to.search(/,/))))
     }
     getEmailAsync(store)
-    navigate('/SearchView')
+    navigation.navigate('Search' as never)
   }
 
   return (
