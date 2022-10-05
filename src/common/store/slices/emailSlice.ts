@@ -131,7 +131,7 @@ export function getEmailAsync(store: Store, append = false): void {
       store.dispatch(setEmailTotal(data.getEmail.total))
       store.dispatch(setEmailLoading(false))
     })
-    .catch((e) => console.error(e))
+    .catch((e) => console.error('getEmailAsync', e))
 }
 
 export const getEmailById = (store: Store, id: string): Email | undefined => {

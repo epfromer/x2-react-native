@@ -46,7 +46,7 @@ export async function loadAppSettingsAsync(store: Store): Promise<void> {
     if (value === 'true') darkMode = true
     store.dispatch(setDarkMode(darkMode))
   } catch (e) {
-    console.error(e)
+    console.error('loadAppSettingsAsync', e)
   }
 }
 
@@ -89,17 +89,13 @@ export function getInitialDataAsync(store: Store): void {
       }
     }
   `
-  // console.log('setting headers')
   const endpoint = `${REACT_APP_X2_SERVER}/graphql/`
-  const graphQLClient = new GraphQLClient(endpoint, {
-    mode: 'no-cors',
-  })
-  graphQLClient.setHeader('Access-Control-Allow-Origin', '*')
-  // console.log('calling client')
+  const graphQLClient = new GraphQLClient(endpoint)
+  console.log('getInitialDataAsync: graphQL request of ', endpoint)
   graphQLClient
     .request(query)
     .then(async (data) => {
-      // console.log('got it!')
+      console.log('getInitialDataAsync: response ', data.getCustodians)
       // await sleep(5000)
       store.dispatch(setWordCloud(data.getWordCloud))
       store.dispatch(setEmailSentByDay(data.getEmailSentByDay))
@@ -109,8 +105,6 @@ export function getInitialDataAsync(store: Store): void {
       store.dispatch(setCustodiansLoading(false))
     })
     .catch((e) => {
-      console.log('got an error')
-      console.error(e)
+      console.error('getInitialDataAsync', e)
     })
-  // console.log('returning from calling client')
 }

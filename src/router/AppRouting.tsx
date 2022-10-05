@@ -20,11 +20,11 @@ export default function AppRouting() {
         <Stack.Screen name="Pie" component={PieView} />
         <Stack.Screen name="Bar" component={BarView} />
         <Stack.Screen name="Volume Timeline" component={VolumeTimelineView} />
-        {/*<Stack.Screen name="Network Graph" component={NetworkGraphView} />
+        <Stack.Screen name="Network Graph" component={NetworkGraphView} />
         <Stack.Screen name="Tree Map" component={TreeMapView} />
         <Stack.Screen name="Search" component={SearchView} />
         <Stack.Screen name="Search History" component={SearchHistoryView} />
-        <Stack.Screen name="Email Detail" component={EmailDetailView} /> */}
+        <Stack.Screen name="Email Detail" component={EmailDetailView} />
       </Stack.Navigator>
     </NavigationContainer>
   )

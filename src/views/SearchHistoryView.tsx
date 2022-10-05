@@ -80,7 +80,7 @@ export default function SearchHistoryView() {
         setLog(data.getSearchHistory)
         setLogLoading(false)
       })
-      .catch((e) => console.error(e))
+      .catch((e) => console.error('getSearchHistory', e))
   }
 
   const onSearchHistory = (entry: string) => {
@@ -106,7 +106,7 @@ export default function SearchHistoryView() {
     `
     request(`${REACT_APP_X2_SERVER}/graphql/`, mutation)
       .then(() => getSearchHistory())
-      .catch((e) => console.error(e))
+      .catch((e) => console.error('onClearHistory', e))
   }
 
   const renderItem = ({ item }: any) => (
