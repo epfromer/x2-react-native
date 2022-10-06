@@ -49,6 +49,7 @@ export default function VolumeTimelineVictory({ data }: Props) {
       }
     >
       <VictoryChart
+        // scale results in a prop type error, but is valid per doco
         scale={{ x: 'time' }}
         padding={
           orientation === 'portrait'
