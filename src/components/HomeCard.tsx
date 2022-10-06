@@ -1,11 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
-import { useContext } from 'react'
+// import { useContext } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { ThemeContext } from 'react-native-elements'
+// import { ThemeContext } from 'react-native-elements'
 import { useSelector } from 'react-redux'
 import { blackBackground, getDarkMode } from '../common'
-
-// https://docs.nativebase.io/Components.html#card-headfoot-headref
 
 interface Props {
   image: any
@@ -13,7 +11,7 @@ interface Props {
   description: string
 }
 export default function HomeCard({ image, title, description }: Props) {
-  const { theme }: any = useContext(ThemeContext)
+  // const { theme }: any = useContext(ThemeContext)
   const navigation = useNavigation()
   const darkMode = useSelector(getDarkMode)
 
@@ -40,7 +38,8 @@ export default function HomeCard({ image, title, description }: Props) {
     },
     separator: {
       marginVertical: 8,
-      borderBottomColor: theme.colors.divider,
+      // TODO
+      // borderBottomColor: theme.colors.divider,
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
   })
