@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 // import EmailDetailView from '../views/EmailDetailView'
 import HomeView from '../views/HomeView'
 // import NetworkGraphView from '../views/NetworkGraphView'
-// import PieView from '../views/PieView'
+import PieView from '../views/PieView'
 // import SearchHistoryView from '../views/SearchHistoryView'
 // import SearchView from '../views/SearchView'
 // import TreeMapView from '../views/TreeMapView'
@@ -17,13 +17,14 @@ export default function AppRouting() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeView} />
+        <Stack.Screen name="Pie" component={PieView} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 {
-  /* <Stack.Screen name="Pie" component={PieView} />
+  /*
 <Stack.Screen name="Bar" component={BarView} />
 <Stack.Screen name="Volume Timeline" component={VolumeTimelineView} />
 <Stack.Screen name="Network Graph" component={NetworkGraphView} />
