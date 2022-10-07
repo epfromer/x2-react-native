@@ -5,15 +5,13 @@ import { VictoryPie } from 'victory-native'
 import { EmailXferedDatum, getDarkMode } from '../../common'
 
 // https://formidable.com/open-source/victory/docs/victory-pie
-// TODO - https://github.com/FormidableLabs/victory-native/issues/568, events don't work on Android
 
 interface Props {
-  title: string
   search: string
   data: Array<EmailXferedDatum>
   handleClick: (search: string, name: string) => void
 }
-export default function PieVictory({ data }: Props) {
+export default function PieVictory({ search, data, handleClick }: Props) {
   const darkMode = useSelector(getDarkMode)
 
   interface Datum {
@@ -35,6 +33,14 @@ export default function PieVictory({ data }: Props) {
       <VictoryPie
         animate
         data={vData}
+        events={[
+          {
+            target: 'data',
+            eventHandlers: {
+              onPress: (props, slice) => handleClick(search, slice.datum.x),
+            },
+          },
+        ]}
         style={{
           data: {
             fill: ({ datum }: any) => datum.color,

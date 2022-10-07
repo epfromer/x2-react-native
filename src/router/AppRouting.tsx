@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import BarView from '../views/BarView'
 import HomeView from '../views/HomeView'
 import PieView from '../views/PieView'
+import SearchView from '../views/SearchView'
 import VolumeTimelineView from '../views/VolumeTimelineView'
 
 const Stack = createNativeStackNavigator()
@@ -15,6 +16,7 @@ export default function AppRouting() {
         <Stack.Screen name="Pie" component={PieView} />
         <Stack.Screen name="Bar" component={BarView} />
         <Stack.Screen name="Volume Timeline" component={VolumeTimelineView} />
+        <Stack.Screen name="Search" component={SearchView} />
       </Stack.Navigator>
     </NavigationContainer>
   )

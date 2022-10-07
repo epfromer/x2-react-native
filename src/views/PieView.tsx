@@ -56,24 +56,11 @@ export default function PieView() {
       />
       <View style={styles.chart}>
         {!custodiansLoading && (
-          <>
-            {isSenders && (
-              <PieVictory
-                title="Senders"
-                search="from"
-                data={emailSenders}
-                handleClick={handleClick}
-              />
-            )}
-            {!isSenders && (
-              <PieVictory
-                title="Receivers"
-                search="to"
-                data={emailReceivers}
-                handleClick={handleClick}
-              />
-            )}
-          </>
+          <PieVictory
+            search={isSenders ? 'from' : 'to'}
+            data={isSenders ? emailSenders : emailReceivers}
+            handleClick={handleClick}
+          />
         )}
       </View>
       <Picker
