@@ -8,12 +8,10 @@ import {
   setSubject,
   setThemeName,
   setTo,
-  setWordCloud,
   store,
   testCustodians,
   testEmail,
   testEmailSentByDay,
-  testWordCloud,
 } from '@klonzo/common'
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 import { render } from '@testing-library/react-native'
@@ -25,7 +23,6 @@ import { appThemes } from './utils/appThemes'
 // eslint-disable-next-line no-undef
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
-store.dispatch(setWordCloud(testWordCloud))
 store.dispatch(setCustodians(testCustodians))
 store.dispatch(setEmailSentByDay(testEmailSentByDay))
 store.dispatch(setEmail(testEmail))

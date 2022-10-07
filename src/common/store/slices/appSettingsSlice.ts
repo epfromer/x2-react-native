@@ -8,7 +8,6 @@ import {
   setEmailSentByDay,
   setEmailSentByDayLoading,
 } from './emailSentByDaySlice'
-import { setWordCloud, setWordCloudLoading } from './wordCloudSlice'
 
 export interface AppSettingsState {
   darkMode: boolean
@@ -62,15 +61,10 @@ export async function setDarkModeAsync(
 
 // graphQl query
 export function getInitialDataAsync(store: Store): void {
-  store.dispatch(setWordCloudLoading(true))
   store.dispatch(setEmailSentByDayLoading(true))
   store.dispatch(setCustodiansLoading(true))
   const query = gql`
     {
-      getWordCloud {
-        tag
-        weight
-      }
       getEmailSentByDay {
         sent
         total
@@ -97,10 +91,8 @@ export function getInitialDataAsync(store: Store): void {
     .then(async (data) => {
       console.log('getInitialDataAsync: response ', data.getCustodians)
       // await sleep(5000)
-      store.dispatch(setWordCloud(data.getWordCloud))
       store.dispatch(setEmailSentByDay(data.getEmailSentByDay))
       store.dispatch(setCustodians(data.getCustodians))
-      store.dispatch(setWordCloudLoading(false))
       store.dispatch(setEmailSentByDayLoading(false))
       store.dispatch(setCustodiansLoading(false))
     })

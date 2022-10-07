@@ -28,16 +28,6 @@ export default function HomeView() {
         title="Volume Timeline"
         description="Enron email per day."
       />
-      <HomeCard
-        image={require('./img/networkgraph.png')}
-        title="Network Graph"
-        description="Enron custodian communication."
-      />
-      <HomeCard
-        image={require('./img/treemap.png')}
-        title="Tree Map"
-        description="Enron custodian email volume."
-      />
     </ScrollView>
   )
 }

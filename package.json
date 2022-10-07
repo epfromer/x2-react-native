@@ -16,7 +16,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
-    "expo": "~46.0.14",
+    "expo": "~46.0.15",
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
     "react": "18.0.0",

@@ -33,16 +33,13 @@ import {
   setFrom,
   setSubject,
   setTo,
-  setWordCloud,
   store,
   testCustodians,
   testEmail,
   testEmailSentByDay,
-  testWordCloud,
-} from '../../../packages/common/src/index'
+} from '../'
 // jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
-store.dispatch(setWordCloud(testWordCloud))
 store.dispatch(setCustodians(testCustodians))
 store.dispatch(setEmailSentByDay(testEmailSentByDay))
 store.dispatch(setEmail(testEmail))
@@ -74,12 +71,6 @@ test('getEmailIndex', () => {
   expect(
     getEmailIndex(store, 'f3281cc4-90a9-4dcb-86bd-d705fc847985')
   ).toBeTruthy()
-})
-
-test('getWordCloudAsync', async () => {
-  fetchMock.mockResponseOnce(JSON.stringify(testCustodians))
-  await getCustodiansAsync(store)
-  expect(store.getState().custodians.custodians).toEqual(testCustodians)
 })
 
 test('loadAppSettingsAsync', async () => {

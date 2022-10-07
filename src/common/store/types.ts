@@ -32,11 +32,6 @@ export interface Custodian {
   toCustodians: CustodianInteractions[]
 }
 
-export interface WordCloudTag {
-  tag: string
-  weight: number
-}
-
 export interface EmailList {
   total: number
   emails: Array<Email>
