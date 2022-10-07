@@ -17,7 +17,7 @@ import {
   setTo,
   store,
 } from '../common'
-import PieVictory from '../components/Victory/PieVictory'
+import PieChart from '../components/PieChart'
 
 export default function PieView() {
   const dispatch = useDispatch()
@@ -56,7 +56,7 @@ export default function PieView() {
       />
       <View style={styles.chart}>
         {!custodiansLoading && (
-          <PieVictory
+          <PieChart
             search={isSenders ? 'from' : 'to'}
             data={isSenders ? emailSenders : emailReceivers}
             handleClick={handleClick}

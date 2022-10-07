@@ -11,11 +11,9 @@ import {
 
 export interface AppSettingsState {
   darkMode: boolean
-  orientation: string
 }
 const initialState: AppSettingsState = {
   darkMode: false,
-  orientation: 'portrait',
 }
 
 // Actions

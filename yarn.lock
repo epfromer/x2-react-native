@@ -3871,6 +3871,13 @@ expo-modules-core@0.11.7:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-screen-orientation@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/expo-screen-orientation/-/expo-screen-orientation-4.3.0.tgz#8504e10ae978c44c31fe891d1c0e058dadae4eba"
+  integrity sha512-jMLjkhft5aJSkdoKjb1HiLlf73gpsfI54L//uPvPuuwsPq3FMHwAnkDesY8XIZdZqw+exrK/SMbDAEryMJ45kg==
+  dependencies:
+    "@expo/config-plugins" "~5.0.0"
+
 expo@~46.0.15:
   version "46.0.15"
   resolved "https://registry.yarnpkg.com/expo/-/expo-46.0.15.tgz#c10d27c0ee85669132310949f2e56e95b4a14469"

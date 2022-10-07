@@ -14,7 +14,7 @@ import {
   setSent,
   store,
 } from '../common'
-import VolumeTimelineVictory from '../components/Victory/VolumeTimelineVictory'
+import VolumeTimelineChart from '../components/VolumeTimelineChart'
 
 export default function VolumeTimelineView() {
   const dispatch = useDispatch()
@@ -58,7 +58,7 @@ export default function VolumeTimelineView() {
       />
       <View style={styles.chart}>
         {emailSent && (
-          <VolumeTimelineVictory
+          <VolumeTimelineChart
             title="Email Volume per Day"
             data={data}
             handleClick={handleClick}

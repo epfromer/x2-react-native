@@ -7,7 +7,7 @@ import {
   VictoryLine,
   VictoryZoomContainer,
 } from 'victory-native'
-import { EmailSentByDay, getDarkMode } from '../../common'
+import { EmailSentByDay, getDarkMode } from '../common'
 
 // https://formidable.com/open-source/victory/docs/victory-polar-axis
 
@@ -17,7 +17,7 @@ interface Props {
   handleClick: (date: string) => void
 }
 
-export default function VolumeTimelineVictory({ data }: Props) {
+export default function VolumeTimelineChart({ data }: Props) {
   const [orientation, setOrientation] = useState('portrait')
   const [zoomDomain, setZoomDomain] = useState({
     x: [new Date(1999, 1, 1), new Date(2002, 3, 1)],

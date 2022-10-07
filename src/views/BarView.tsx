@@ -6,6 +6,12 @@ import { SafeAreaView, StyleSheet, View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryLabel,
+} from 'victory-native'
+import {
   blackBackground,
   clearSearch,
   getCustodiansLoading,
@@ -17,7 +23,6 @@ import {
   setTo,
   store,
 } from '../common'
-import BarVictory from '../components/Victory/BarVictory'
 
 export default function BarView() {
   const dispatch = useDispatch()
@@ -25,6 +30,7 @@ export default function BarView() {
   const custodiansLoading = useSelector(getCustodiansLoading)
   const emailSenders = useSelector(getEmailSenders)
   const emailReceivers = useSelector(getEmailReceivers)
+  const [orientation, setOrientation] = useState('portrait')
   const darkMode = useSelector(getDarkMode)
   const navigation = useNavigation()
 
@@ -47,6 +53,21 @@ export default function BarView() {
     navigation.navigate('Search' as never)
   }
 
+  interface Datum {
+    x: string
+    y: number
+    color: string
+  }
+  const data = isSenders ? emailSenders : emailReceivers
+  const vData: Array<Datum> = []
+  data.forEach((datum) =>
+    vData.push({
+      x: datum.name,
+      y: datum.value,
+      color: datum.color,
+    })
+  )
+
   return (
     <SafeAreaView style={styles.container}>
       <Spinner
@@ -54,28 +75,70 @@ export default function BarView() {
         color={darkMode ? 'white' : 'black'}
         textContent={'Loading...'}
       />
-      <View style={styles.chart}>
-        {!custodiansLoading && (
-          <>
-            {isSenders && (
-              <BarVictory
-                title="Senders"
-                search="from"
-                data={emailSenders}
-                handleClick={handleClick}
-              />
-            )}
-            {!isSenders && (
-              <BarVictory
-                title="Receivers"
-                search="to"
-                data={emailReceivers}
-                handleClick={handleClick}
-              />
-            )}
-          </>
-        )}
-      </View>
+      {!custodiansLoading && (
+        <View
+          style={styles.chart}
+          onLayout={({ nativeEvent }: any) => {
+            setOrientation(
+              nativeEvent.layout.width < nativeEvent.layout.height
+                ? 'portrait'
+                : 'landscape'
+            )
+          }}
+        >
+          <VictoryChart height={550}>
+            <VictoryAxis
+              tickLabelComponent={
+                <VictoryLabel
+                  verticalAnchor="middle"
+                  textAnchor="start"
+                  x={10}
+                  dy={-30}
+                />
+              }
+              style={{
+                tickLabels: {
+                  fill: darkMode ? 'white' : 'black',
+                  fontSize: 20,
+                },
+              }}
+            />
+            <VictoryAxis
+              dependentAxis
+              style={{
+                tickLabels: {
+                  fill: darkMode ? 'white' : 'black',
+                  // fontSize: 10,
+                },
+              }}
+            />
+            <VictoryBar
+              horizontal
+              animate
+              data={vData}
+              barWidth={30}
+              events={[
+                {
+                  target: 'data',
+                  eventHandlers: {
+                    onPress: (props, slice) =>
+                      handleClick(isSenders ? 'from' : 'to', slice.datum.x),
+                  },
+                },
+              ]}
+              style={{
+                data: {
+                  fill: ({ datum }: any) => datum.color,
+                },
+                labels: {
+                  fill: darkMode ? 'white' : 'black',
+                  // fontSize: 10,
+                },
+              }}
+            />
+          </VictoryChart>
+        </View>
+      )}
       <Picker
         selectedValue={isSenders ? 'Senders' : 'Receivers'}
         onValueChange={(value) => setIsSenders(value === 'Senders')}

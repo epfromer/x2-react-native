@@ -1,8 +1,7 @@
-import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { VictoryPie } from 'victory-native'
-import { EmailXferedDatum, getDarkMode } from '../../common'
+import { EmailXferedDatum, getDarkMode } from '../common'
 
 // https://formidable.com/open-source/victory/docs/victory-pie
 
@@ -11,7 +10,7 @@ interface Props {
   data: Array<EmailXferedDatum>
   handleClick: (search: string, name: string) => void
 }
-export default function PieVictory({ search, data, handleClick }: Props) {
+export default function PieChart({ search, data, handleClick }: Props) {
   const darkMode = useSelector(getDarkMode)
 
   interface Datum {
