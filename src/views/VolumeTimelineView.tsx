@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
+import { VictoryAxis, VictoryChart, VictoryLine } from 'victory-native'
 import {
   blackBackground,
   clearSearch,
-  EmailSentByDay,
   getDarkMode,
   getEmailAsync,
   getEmailSentByDay,
@@ -16,7 +16,6 @@ import {
   setSent,
   store,
 } from '../common'
-import VolumeTimelineChart from '../components/VolumeTimelineChart'
 
 export default function VolumeTimelineView() {
   const dispatch = useDispatch()
@@ -24,7 +23,7 @@ export default function VolumeTimelineView() {
   const emailSent = useSelector(getEmailSentByDay)
   const darkMode = useSelector(getDarkMode)
   const navigation = useNavigation()
-  const [dim, setDim] = useState({ width: 0, height: 500 })
+  const [isPortrait, setIsPortrait] = useState(true)
 
   // lock orientation for this view
   useEffect(() => {
@@ -38,23 +37,26 @@ export default function VolumeTimelineView() {
     navigation.navigate('Search' as never)
   }
 
-  let data: Array<EmailSentByDay> = []
+  interface Datum {
+    x: string | Date
+    y: number
+  }
+  const vData: Array<Datum> = []
   if (emailSent) {
-    data = emailSent.map((stat: any) => ({
-      sent: stat.sent,
-      total: stat.total,
-    }))
+    emailSent.forEach((datum) =>
+      vData.push({
+        x: typeof datum.sent === 'string' ? new Date(datum.sent) : datum.sent,
+        y: datum.total,
+      })
+    )
   }
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'column',
       backgroundColor: darkMode ? blackBackground : 'white',
     },
-    chart: {
-      flex: 9,
-    },
+    chart: {},
   })
 
   return (
@@ -62,8 +64,7 @@ export default function VolumeTimelineView() {
       style={styles.container}
       onLayout={(event) => {
         const { width, height } = event.nativeEvent.layout
-        setDim({ width, height })
-        console.log(height)
+        setIsPortrait(width < height)
       }}
     >
       <Spinner
@@ -72,12 +73,39 @@ export default function VolumeTimelineView() {
         color={darkMode ? 'white' : 'black'}
       />
       <View style={styles.chart}>
-        {emailSent && (
-          <VolumeTimelineChart
-            title="Email Volume per Day"
-            data={data}
-            handleClick={handleClick}
-          />
+        {emailSent && isPortrait && (
+          <VictoryChart scale="time" height={700}>
+            <VictoryAxis
+              style={{
+                tickLabels: {
+                  fill: darkMode ? 'white' : 'black',
+                  fontSize: 15,
+                },
+              }}
+            />
+            <VictoryLine
+              animate
+              data={vData}
+              style={{ data: { stroke: '#c43a31' } }}
+            />
+          </VictoryChart>
+        )}
+        {emailSent && !isPortrait && (
+          <VictoryChart scale="time" width={800}>
+            <VictoryAxis
+              style={{
+                tickLabels: {
+                  fill: darkMode ? 'white' : 'black',
+                  fontSize: 15,
+                },
+              }}
+            />
+            <VictoryLine
+              animate
+              data={vData}
+              style={{ data: { stroke: '#c43a31' } }}
+            />
+          </VictoryChart>
         )}
       </View>
       {process.env.NODE_ENV === 'test' && (

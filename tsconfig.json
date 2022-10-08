@@ -1,7 +1,5 @@
 {
   "extends": "expo/tsconfig.base",
-  "target": "es2017",
-  "module": "esnext",
   "compilerOptions": {
     "strict": true
   }

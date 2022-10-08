@@ -61,7 +61,7 @@ export default function PieView() {
   const vData: Array<Datum> = []
   data.forEach((datum) =>
     vData.push({
-      x: datum.name,
+      x: datum.name.substring(0, datum.name.search(',')),
       y: datum.value,
       color: datum.color,
     })
@@ -94,7 +94,7 @@ export default function PieView() {
             },
             labels: {
               fill: darkMode ? 'white' : 'black',
-              fontSize: 15,
+              fontSize: 20,
             },
           }}
         />

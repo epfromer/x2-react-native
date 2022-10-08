@@ -76,8 +76,8 @@ export default function BarView() {
     <View style={styles.container}>
       <Spinner
         visible={custodiansLoading}
-        color={darkMode ? 'white' : 'black'}
         textContent={'Loading...'}
+        color={darkMode ? 'white' : 'black'}
       />
       {!custodiansLoading && (
         <VictoryChart height={500}>
