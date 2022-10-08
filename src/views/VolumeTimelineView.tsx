@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import { Button } from '@rneui/themed'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import * as ScreenOrientation from 'expo-screen-orientation'
+import { useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -22,6 +24,12 @@ export default function VolumeTimelineView() {
   const emailSent = useSelector(getEmailSentByDay)
   const darkMode = useSelector(getDarkMode)
   const navigation = useNavigation()
+  const [dim, setDim] = useState({ width: 0, height: 500 })
+
+  // lock orientation for this view
+  useEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+  }, [])
 
   function handleClick(date: string) {
     dispatch(clearSearch())
@@ -50,7 +58,14 @@ export default function VolumeTimelineView() {
   })
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View
+      style={styles.container}
+      onLayout={(event) => {
+        const { width, height } = event.nativeEvent.layout
+        setDim({ width, height })
+        console.log(height)
+      }}
+    >
       <Spinner
         visible={emailSentLoading}
         textContent={'Loading...'}
@@ -68,6 +83,6 @@ export default function VolumeTimelineView() {
       {process.env.NODE_ENV === 'test' && (
         <Button onPress={() => handleClick('2001-01-01')} testID="test-click" />
       )}
-    </SafeAreaView>
+    </View>
   )
 }

@@ -1,8 +1,9 @@
 import { Picker } from '@react-native-picker/picker'
 import { useNavigation } from '@react-navigation/native'
 import { Button } from '@rneui/themed'
-import { useState } from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import * as ScreenOrientation from 'expo-screen-orientation'
+import { useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -30,18 +31,21 @@ export default function BarView() {
   const custodiansLoading = useSelector(getCustodiansLoading)
   const emailSenders = useSelector(getEmailSenders)
   const emailReceivers = useSelector(getEmailReceivers)
-  const [orientation, setOrientation] = useState('portrait')
   const darkMode = useSelector(getDarkMode)
   const navigation = useNavigation()
+
+  // lock orientation for this view
+  useEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+    return () => {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+    }
+  }, [])
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'column',
       backgroundColor: darkMode ? blackBackground : 'white',
-    },
-    chart: {
-      flex: 9,
     },
   })
 
@@ -69,75 +73,63 @@ export default function BarView() {
   )
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Spinner
         visible={custodiansLoading}
         color={darkMode ? 'white' : 'black'}
         textContent={'Loading...'}
       />
       {!custodiansLoading && (
-        <View
-          style={styles.chart}
-          onLayout={({ nativeEvent }: any) => {
-            setOrientation(
-              nativeEvent.layout.width < nativeEvent.layout.height
-                ? 'portrait'
-                : 'landscape'
-            )
-          }}
-        >
-          <VictoryChart height={550}>
-            <VictoryAxis
-              tickLabelComponent={
-                <VictoryLabel
-                  verticalAnchor="middle"
-                  textAnchor="start"
-                  x={10}
-                  dy={-30}
-                />
-              }
-              style={{
-                tickLabels: {
-                  fill: darkMode ? 'white' : 'black',
-                  fontSize: 20,
+        <VictoryChart height={500}>
+          <VictoryAxis
+            tickLabelComponent={
+              <VictoryLabel
+                verticalAnchor="middle"
+                textAnchor="start"
+                x={10}
+                dy={-30}
+              />
+            }
+            style={{
+              tickLabels: {
+                fill: darkMode ? 'white' : 'black',
+                fontSize: 20,
+              },
+            }}
+          />
+          <VictoryAxis
+            dependentAxis
+            style={{
+              tickLabels: {
+                fill: darkMode ? 'white' : 'black',
+                fontSize: 20,
+              },
+            }}
+          />
+          <VictoryBar
+            horizontal
+            animate
+            data={vData}
+            barWidth={30}
+            events={[
+              {
+                target: 'data',
+                eventHandlers: {
+                  onPress: (props, slice) =>
+                    handleClick(isSenders ? 'from' : 'to', slice.datum.x),
                 },
-              }}
-            />
-            <VictoryAxis
-              dependentAxis
-              style={{
-                tickLabels: {
-                  fill: darkMode ? 'white' : 'black',
-                  // fontSize: 10,
-                },
-              }}
-            />
-            <VictoryBar
-              horizontal
-              animate
-              data={vData}
-              barWidth={30}
-              events={[
-                {
-                  target: 'data',
-                  eventHandlers: {
-                    onPress: (props, slice) =>
-                      handleClick(isSenders ? 'from' : 'to', slice.datum.x),
-                  },
-                },
-              ]}
-              style={{
-                data: {
-                  fill: ({ datum }: any) => datum.color,
-                },
-                labels: {
-                  fill: darkMode ? 'white' : 'black',
-                  // fontSize: 10,
-                },
-              }}
-            />
-          </VictoryChart>
-        </View>
+              },
+            ]}
+            style={{
+              data: {
+                fill: ({ datum }: any) => datum.color,
+              },
+              labels: {
+                fill: darkMode ? 'white' : 'black',
+              },
+            }}
+          />
+        </VictoryChart>
       )}
       <Picker
         selectedValue={isSenders ? 'Senders' : 'Receivers'}
@@ -152,6 +144,6 @@ export default function BarView() {
           testID="test-click"
         />
       )}
-    </SafeAreaView>
+    </View>
   )
 }

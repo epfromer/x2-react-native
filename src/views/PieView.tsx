@@ -1,10 +1,12 @@
 import { Picker } from '@react-native-picker/picker'
 import { useNavigation } from '@react-navigation/native'
 import { Button } from '@rneui/themed'
-import { useState } from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import * as ScreenOrientation from 'expo-screen-orientation'
+import { useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
+import { VictoryPie, VictoryLabel } from 'victory-native'
 import {
   blackBackground,
   clearSearch,
@@ -17,7 +19,6 @@ import {
   setTo,
   store,
 } from '../common'
-import PieChart from '../components/PieChart'
 
 export default function PieView() {
   const dispatch = useDispatch()
@@ -28,14 +29,18 @@ export default function PieView() {
   const darkMode = useSelector(getDarkMode)
   const navigation = useNavigation()
 
+  // lock orientation for this view
+  useEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+    return () => {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+    }
+  }, [])
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'column',
       backgroundColor: darkMode ? blackBackground : 'white',
-    },
-    chart: {
-      flex: 9,
     },
   })
 
@@ -47,22 +52,53 @@ export default function PieView() {
     navigation.navigate('Search' as never)
   }
 
+  interface Datum {
+    x: string
+    y: number
+    color: string
+  }
+  const data = isSenders ? emailSenders : emailReceivers
+  const vData: Array<Datum> = []
+  data.forEach((datum) =>
+    vData.push({
+      x: datum.name,
+      y: datum.value,
+      color: datum.color,
+    })
+  )
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Spinner
         visible={custodiansLoading}
         color={darkMode ? 'white' : 'black'}
         textContent={'Loading...'}
       />
-      <View style={styles.chart}>
-        {!custodiansLoading && (
-          <PieChart
-            search={isSenders ? 'from' : 'to'}
-            data={isSenders ? emailSenders : emailReceivers}
-            handleClick={handleClick}
-          />
-        )}
-      </View>
+      {!custodiansLoading && (
+        <VictoryPie
+          animate
+          data={vData}
+          labelComponent={<VictoryLabel textAnchor="start" dx={-20} />}
+          events={[
+            {
+              target: 'data',
+              eventHandlers: {
+                onPress: (props, slice) =>
+                  handleClick(isSenders ? 'from' : 'to', slice.datum.x),
+              },
+            },
+          ]}
+          style={{
+            data: {
+              fill: ({ datum }: any) => datum.color,
+            },
+            labels: {
+              fill: darkMode ? 'white' : 'black',
+              fontSize: 15,
+            },
+          }}
+        />
+      )}
       <Picker
         selectedValue={isSenders ? 'Senders' : 'Receivers'}
         onValueChange={(value) => setIsSenders(value === 'Senders')}
@@ -73,6 +109,6 @@ export default function PieView() {
       {process.env.NODE_ENV === 'test' && (
         <Button onPress={() => handleClick('to', 'from')} testID="test-click" />
       )}
-    </SafeAreaView>
+    </View>
   )
 }

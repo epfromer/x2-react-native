@@ -5,6 +5,7 @@ import HomeCard from '../components/HomeCard'
 
 export default function HomeView() {
   const darkMode = useSelector(getDarkMode)
+
   const styles = StyleSheet.create({
     container: {
       backgroundColor: darkMode ? blackBackground : 'white',
