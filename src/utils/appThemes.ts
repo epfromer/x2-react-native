@@ -1,5 +1,5 @@
-// @ts-ignore
-import bestContrast from 'get-best-contrast-color'
+import { createTheme, lightColors, darkColors } from '@rneui/themed'
+import { Platform } from 'react-native'
 
 export interface AppTheme {
   name: string
@@ -57,13 +57,25 @@ export const appThemes: Array<AppTheme> = [
   },
 ]
 
-export function getTheme(themeName: string) {
-  return appThemes.find((t) => t.name === themeName)
-}
-
-export function textColor(theme: AppTheme) {
-  return bestContrast(theme.Header.containerStyle.backgroundColor, [
-    theme.colors.white,
-    theme.colors.black,
-  ])
+export function getTheme() {
+  // return appThemes.find((t) => t.name === themeName)
+  console.log('gettheme')
+  return createTheme({
+    lightColors: {
+      ...Platform.select({
+        default: lightColors.platform.ios,
+        ios: lightColors.platform.ios,
+      }),
+    },
+    darkColors: {
+      ...Platform.select({
+        default: darkColors.platform.ios,
+        ios: darkColors.platform.ios,
+      }),
+    },
+    // components: {
+    //   Header: { containerStyle: { backgroundColor: '#8e0000' } },
+    //   Button: { buttonStyle: { backgroundColor: '#c62828' } },
+    // },
+  })
 }

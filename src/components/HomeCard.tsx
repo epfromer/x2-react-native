@@ -18,18 +18,18 @@ export default function HomeCard({ image, title, description }: Props) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: darkMode ? blackBackground : 'white',
+      // backgroundColor: darkMode ? blackBackground : 'white',
     },
     title: {
       fontSize: 20,
       marginLeft: 10,
       marginTop: 10,
-      color: darkMode ? 'white' : 'black',
+      // color: darkMode ? 'white' : 'black',
     },
     text: {
       marginLeft: 10,
       marginBottom: 10,
-      color: darkMode ? 'white' : 'black',
+      // color: darkMode ? 'white' : 'black',
     },
     image: {
       width: '90%',
