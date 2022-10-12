@@ -13,7 +13,7 @@ export interface AppSettingsState {
   darkMode: boolean
 }
 const initialState: AppSettingsState = {
-  darkMode: false,
+  darkMode: true,
 }
 
 // Actions

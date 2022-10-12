@@ -4,6 +4,7 @@ import {
   getEmailAsync,
   getInitialDataAsync,
   loadAppSettingsAsync,
+  setDarkModeAsync,
   store,
 } from './src/common'
 import AppRouting from './src/router/AppRouting'
@@ -12,6 +13,9 @@ import { getTheme } from './src/utils/appThemes'
 getInitialDataAsync(store)
 getEmailAsync(store)
 loadAppSettingsAsync(store)
+
+// TODO
+setDarkModeAsync(store, true)
 
 function RoutedApp() {
   const { mode, setMode } = useThemeMode()

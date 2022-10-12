@@ -1,7 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-// import { useContext } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-// import { ThemeContext } from 'react-native-elements'
 import { useSelector } from 'react-redux'
 import { blackBackground, getDarkMode } from '../common'
 
@@ -11,25 +9,24 @@ interface Props {
   description: string
 }
 export default function HomeCard({ image, title, description }: Props) {
-  // const { theme }: any = useContext(ThemeContext)
   const navigation = useNavigation()
   const darkMode = useSelector(getDarkMode)
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      // backgroundColor: darkMode ? blackBackground : 'white',
+      backgroundColor: darkMode ? blackBackground : 'white',
     },
     title: {
       fontSize: 20,
       marginLeft: 10,
       marginTop: 10,
-      // color: darkMode ? 'white' : 'black',
+      color: darkMode ? 'white' : 'black',
     },
     text: {
       marginLeft: 10,
       marginBottom: 10,
-      // color: darkMode ? 'white' : 'black',
+      color: darkMode ? 'white' : 'black',
     },
     image: {
       width: '90%',
@@ -38,8 +35,7 @@ export default function HomeCard({ image, title, description }: Props) {
     },
     separator: {
       marginVertical: 8,
-      // TODO
-      // borderBottomColor: theme.colors.divider,
+      borderBottomColor: darkMode ? 'white' : 'black',
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
   })
