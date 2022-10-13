@@ -14,13 +14,7 @@ getInitialDataAsync(store)
 getEmailAsync(store)
 loadAppSettingsAsync(store)
 
-// TODO
-setDarkModeAsync(store, true)
-
 function RoutedApp() {
-  const { mode, setMode } = useThemeMode()
-  console.log(mode)
-
   return <AppRouting />
 }
 

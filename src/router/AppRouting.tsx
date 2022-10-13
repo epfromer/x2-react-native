@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Button, useTheme } from '@rneui/themed'
 import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import { getDarkMode } from '../common'
+import { getDarkMode, setDarkModeAsync, store } from '../common'
 import BarView from '../views/BarView'
 import HomeView from '../views/HomeView'
 import PieView from '../views/PieView'
@@ -16,24 +16,16 @@ const Stack = createNativeStackNavigator()
 export default function AppRouting() {
   const darkMode = useSelector(getDarkMode)
   const { theme } = useTheme()
-  const styles = StyleSheet.create({
-    container: {
-      marginBottom: 10,
-      marginRight: 10,
-    },
-  })
 
   const DarkModeButton = () => (
-    <View style={styles.container}>
-      <Button
-        color={theme.colors.primary}
-        onPress={() => console.log('This is a button!')}
-        icon={{
-          name: darkMode ? 'brightness-high' : 'brightness-4',
-          size: 25,
-        }}
-      />
-    </View>
+    <Button
+      color={theme.colors.primary}
+      onPress={() => setDarkModeAsync(store, !darkMode)}
+      icon={{
+        name: darkMode ? 'brightness-high' : 'brightness-4',
+        size: 25,
+      }}
+    />
   )
 
   return (
