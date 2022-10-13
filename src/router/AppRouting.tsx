@@ -2,7 +2,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Button, useTheme } from '@rneui/themed'
-import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { getDarkMode, setDarkModeAsync, store } from '../common'
 import BarView from '../views/BarView'
