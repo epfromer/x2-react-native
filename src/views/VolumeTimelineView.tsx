@@ -7,7 +7,6 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
 import { VictoryAxis, VictoryChart, VictoryLine } from 'victory-native'
 import {
-  blackBackground,
   clearSearch,
   getDarkMode,
   getEmailAsync,
@@ -16,6 +15,7 @@ import {
   setSent,
   store,
 } from '../common'
+import { blackBackground, primaryColor } from '../utils/appThemes'
 
 export default function VolumeTimelineView() {
   const dispatch = useDispatch()
@@ -86,7 +86,7 @@ export default function VolumeTimelineView() {
             <VictoryLine
               animate
               data={vData}
-              style={{ data: { stroke: '#c43a31' } }}
+              style={{ data: { stroke: primaryColor } }}
             />
           </VictoryChart>
         )}
@@ -103,7 +103,7 @@ export default function VolumeTimelineView() {
             <VictoryLine
               animate
               data={vData}
-              style={{ data: { stroke: '#c43a31' } }}
+              style={{ data: { stroke: primaryColor } }}
             />
           </VictoryChart>
         )}

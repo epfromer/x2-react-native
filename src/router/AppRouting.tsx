@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unstable-nested-components */
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Button } from '@rneui/themed'
-import { FC } from 'react'
+import { Button, useTheme } from '@rneui/themed'
+import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { getDarkMode } from '../common'
 import BarView from '../views/BarView'
@@ -9,36 +10,32 @@ import HomeView from '../views/HomeView'
 import PieView from '../views/PieView'
 import SearchView from '../views/SearchView'
 import VolumeTimelineView from '../views/VolumeTimelineView'
-import { StyleSheet, View } from 'react-native'
 
 const Stack = createNativeStackNavigator()
 
-const styles = StyleSheet.create({
-  container: {
-    color: '#f4511e',
-    marginBottom: 0,
-    marginRight: 0,
-  },
-})
-
-interface DarkModeProps {
-  darkMode: boolean
-}
-const DarkModeButton: FC<DarkModeProps> = (darkMode) => (
-  <View style={styles.container}>
-    <Button
-      color="#f4511e"
-      onPress={() => console.log('This is a button!')}
-      icon={{
-        name: darkMode ? 'brightness-high' : 'brightness-4',
-        size: 25,
-      }}
-    />
-  </View>
-)
-
 export default function AppRouting() {
   const darkMode = useSelector(getDarkMode)
+  const { theme } = useTheme()
+  const styles = StyleSheet.create({
+    container: {
+      marginBottom: 10,
+      marginRight: 10,
+    },
+  })
+
+  const DarkModeButton = () => (
+    <View style={styles.container}>
+      <Button
+        color={theme.colors.primary}
+        onPress={() => console.log('This is a button!')}
+        icon={{
+          name: darkMode ? 'brightness-high' : 'brightness-4',
+          size: 25,
+        }}
+      />
+    </View>
+  )
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -46,43 +43,55 @@ export default function AppRouting() {
           name="Home"
           component={HomeView}
           options={{
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => <DarkModeButton darkMode={darkMode} />,
+            headerRight: () => <DarkModeButton />,
             headerStyle: {
-              backgroundColor: '#f4511e',
+              backgroundColor: theme.colors.primary,
             },
+            headerTintColor: 'black',
           }}
         />
         <Stack.Screen
           name="Pie"
           component={PieView}
           options={{
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => <DarkModeButton darkMode={darkMode} />,
+            headerRight: () => <DarkModeButton />,
+            headerStyle: {
+              backgroundColor: theme.colors.primary,
+            },
+            headerTintColor: 'black',
           }}
         />
         <Stack.Screen
           name="Bar"
           component={BarView}
           options={{
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => <DarkModeButton darkMode={darkMode} />,
+            headerRight: () => <DarkModeButton />,
+            headerStyle: {
+              backgroundColor: theme.colors.primary,
+            },
+            headerTintColor: 'black',
           }}
         />
         <Stack.Screen
           name="Volume Timeline"
           component={VolumeTimelineView}
           options={{
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => <DarkModeButton darkMode={darkMode} />,
+            headerRight: () => <DarkModeButton />,
+            headerStyle: {
+              backgroundColor: theme.colors.primary,
+            },
+            headerTintColor: 'black',
           }}
         />
         <Stack.Screen
           name="Search"
           component={SearchView}
           options={{
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => <DarkModeButton darkMode={darkMode} />,
+            headerRight: () => <DarkModeButton />,
+            headerStyle: {
+              backgroundColor: theme.colors.primary,
+            },
+            headerTintColor: 'black',
           }}
         />
       </Stack.Navigator>

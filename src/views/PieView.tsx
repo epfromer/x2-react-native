@@ -8,7 +8,6 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
 import { VictoryPie, VictoryLabel } from 'victory-native'
 import {
-  blackBackground,
   clearSearch,
   getCustodiansLoading,
   getDarkMode,
@@ -19,6 +18,7 @@ import {
   setTo,
   store,
 } from '../common'
+import { blackBackground, primaryColor } from '../utils/appThemes'
 
 export default function PieView() {
   const dispatch = useDispatch()
@@ -103,8 +103,16 @@ export default function PieView() {
         selectedValue={isSenders ? 'Senders' : 'Receivers'}
         onValueChange={(value) => setIsSenders(value === 'Senders')}
       >
-        <Picker.Item label="Senders" value="Senders" />
-        <Picker.Item label="Receivers" value="Receivers" />
+        <Picker.Item
+          label="Senders"
+          color={isSenders ? primaryColor : 'grey'}
+          value="Senders"
+        />
+        <Picker.Item
+          label="Receivers"
+          color={!isSenders ? primaryColor : 'grey'}
+          value="Receivers"
+        />
       </Picker>
       {process.env.NODE_ENV === 'test' && (
         <Button onPress={() => handleClick('to', 'from')} testID="test-click" />

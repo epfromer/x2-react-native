@@ -1,7 +1,8 @@
 import { ScrollView, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
-import { blackBackground, getDarkMode } from '../common'
+import { getDarkMode } from '../common'
 import HomeCard from '../components/HomeCard'
+import { blackBackground } from '../utils/appThemes'
 
 export default function HomeView() {
   const darkMode = useSelector(getDarkMode)

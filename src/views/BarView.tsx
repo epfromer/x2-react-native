@@ -13,7 +13,6 @@ import {
   VictoryLabel,
 } from 'victory-native'
 import {
-  blackBackground,
   clearSearch,
   getCustodiansLoading,
   getDarkMode,
@@ -24,6 +23,7 @@ import {
   setTo,
   store,
 } from '../common'
+import { blackBackground, primaryColor } from '../utils/appThemes'
 
 export default function BarView() {
   const dispatch = useDispatch()
@@ -135,8 +135,16 @@ export default function BarView() {
         selectedValue={isSenders ? 'Senders' : 'Receivers'}
         onValueChange={(value) => setIsSenders(value === 'Senders')}
       >
-        <Picker.Item label="Senders" value="Senders" />
-        <Picker.Item label="Receivers" value="Receivers" />
+        <Picker.Item
+          label="Senders"
+          color={isSenders ? primaryColor : 'grey'}
+          value="Senders"
+        />
+        <Picker.Item
+          label="Receivers"
+          color={!isSenders ? primaryColor : 'grey'}
+          value="Receivers"
+        />
       </Picker>
       {process.env.NODE_ENV === 'test' && (
         <Button

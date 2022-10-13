@@ -1,5 +1,4 @@
-import { createTheme, lightColors, darkColors } from '@rneui/themed'
-import { Platform } from 'react-native'
+import { createTheme } from '@rneui/themed'
 
 export interface AppTheme {
   name: string
@@ -8,9 +7,6 @@ export interface AppTheme {
   CheckBox?: any
   colors?: any
 }
-
-// https://reactnativeelements.com/docs/button
-// https://reactnativeelements.com/docs/header
 
 export const appThemes: Array<AppTheme> = [
   {
@@ -57,25 +53,22 @@ export const appThemes: Array<AppTheme> = [
   },
 ]
 
+export const primaryColor = '#bb4d00'
+export const blackBackground = '#222222'
+
 export function getTheme() {
-  // return appThemes.find((t) => t.name === themeName)
-  console.log('gettheme')
   return createTheme({
     lightColors: {
-      ...Platform.select({
-        default: lightColors.platform.ios,
-        ios: lightColors.platform.ios,
-      }),
+      primary: primaryColor,
+      background: primaryColor,
     },
     darkColors: {
-      ...Platform.select({
-        default: darkColors.platform.ios,
-        ios: darkColors.platform.ios,
-      }),
+      primary: primaryColor,
+      background: primaryColor,
     },
-    // components: {
-    //   Header: { containerStyle: { backgroundColor: '#8e0000' } },
-    //   Button: { buttonStyle: { backgroundColor: '#c62828' } },
-    // },
+    components: {
+      Header: { containerStyle: { backgroundColor: primaryColor } },
+      Button: { containerStyle: { backgroundColor: primaryColor } },
+    },
   })
 }
